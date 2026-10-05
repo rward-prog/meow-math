@@ -529,6 +529,18 @@ Object.assign(OUT.body,{
   batwings:{back:'<g class="wings">'+bwP+'<g transform="translate(300 0) scale(-1 1)">'+bwP+'</g></g>'},
   ghost:{front:'<path d="M86 196Q150 178 214 196L230 278Q216 268 202 280Q186 268 170 282Q150 270 130 282Q114 268 98 280Q84 268 70 278Z" fill="#fff" fill-opacity=".96" stroke="#BBA9D9" stroke-width="3" stroke-linejoin="round"/><path d="M104 178Q150 198 196 178L196 194Q150 212 104 194Z" fill="#fff" stroke="#BBA9D9" stroke-width="2.5"/>'}
 });
+Object.assign(OUT.body,{
+  science:{front:'<path d="M84 200Q112 186 146 192L136 284Q108 286 88 276Q76 240 84 200Z" fill="#fff" stroke="#BBA9D9" stroke-width="3" stroke-linejoin="round"/>'+
+    '<path d="M216 200Q188 186 154 192L164 284Q192 286 212 276Q224 240 216 200Z" fill="#fff" stroke="#BBA9D9" stroke-width="3" stroke-linejoin="round"/>'+
+    '<path d="M146 192L126 214L142 224Z" fill="#F0EAFB" stroke="#BBA9D9" stroke-width="2.5" stroke-linejoin="round"/><path d="M154 192L174 214L158 224Z" fill="#F0EAFB" stroke="#BBA9D9" stroke-width="2.5" stroke-linejoin="round"/>'+
+    '<rect x="172" y="244" width="30" height="24" rx="3" fill="#fff" stroke="#BBA9D9" stroke-width="2.5"/><path d="M180 244V234" stroke="#4FA3F0" stroke-width="4" stroke-linecap="round"/><path d="M187 244V231" stroke="#E8408A" stroke-width="4" stroke-linecap="round"/><path d="M194 244V235" stroke="#3FAE8A" stroke-width="4" stroke-linecap="round"/>'+
+    '<g transform="translate(86 242) rotate(-4)"><rect width="56" height="29" rx="4" fill="#fff" stroke="#3F2778" stroke-width="2"/><path d="M0 9V4Q0 0 4 0H52Q56 0 56 4V9Z" fill="#E8408A"/>'+
+    '<text x="28" y="7" text-anchor="middle" font-family="Fredoka,Nunito,sans-serif" font-size="5.6" font-weight="600" fill="#fff">Hello, I\'m</text>'+
+    '<text x="28" y="21.5" text-anchor="middle" textLength="47" lengthAdjust="spacingAndGlyphs" font-family="Fredoka,Nunito,sans-serif" font-size="9.5" font-weight="700" fill="#3F2778">Ms. Humora</text></g>'}
+});
+Object.assign(OUT.face,{
+  goggles:'<path d="M90 106L72 104M210 106L228 104" stroke="#E8408A" stroke-width="5" stroke-linecap="round"/><rect x="88" y="90" width="52" height="40" rx="15" fill="#BDE4FF" fill-opacity=".38" stroke="#E8408A" stroke-width="5"/><rect x="160" y="90" width="52" height="40" rx="15" fill="#BDE4FF" fill-opacity=".38" stroke="#E8408A" stroke-width="5"/><path d="M140 106H160" stroke="#E8408A" stroke-width="5" stroke-linecap="round"/><path d="M98 100Q106 94 116 96M170 100Q178 94 188 96" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".85"/>'
+});
 function charmSVG(id,name){
   name=name||'Kitty';
   var n=esc(name),fs=Math.max(8,Math.min(15,64/Math.max(name.length,4)*1.15)).toFixed(1);
@@ -817,8 +829,11 @@ SHOP.toy=[{id:'yarn',name:'Ball of yarn',icon:'🧶',price:20},{id:'mouse',name:
 SHOP.decor=[{id:'poster',name:'Heart poster',icon:'🖼️',price:35},{id:'plant',name:'Leafy plant',icon:'🌿',price:40},{id:'balloons',name:'Balloons',icon:'🎈',price:45},{id:'lamp',name:'Cozy lamp',icon:'💡',price:55},{id:'shelf',name:'Trophy shelf',icon:'📚',price:60},{id:'rainbow',name:'Rainbow',icon:'🌈',price:70}];
 SHOP.hat.push({id:'pumpkin',name:'Pumpkin hat',icon:'🎃',price:50,spooky:true},{id:'witch',name:'Witch hat',icon:'🧹',price:60,spooky:true});
 SHOP.neck.push({id:'batbow',name:'Bat bow tie',icon:'🦇',price:45,spooky:true});
-SHOP.body.push({id:'batwings',name:'Bat wings',icon:'🌙',price:90,spooky:true},{id:'ghost',name:'Ghost sheet',icon:'👻',price:70,spooky:true});
+SHOP.body.push({id:'batwings',name:'Bat wings',icon:'🌙',price:90,spooky:true},{id:'ghost',name:'Ghost sheet',icon:'👻',price:70,spooky:true},{id:'science',name:'Science teacher',icon:'🥼',price:75,spooky:true});
 SHOP.decor.push({id:'jackolantern',name:'Jack-o-lantern',icon:'🎃',price:50,spooky:true},{id:'cobweb',name:'Cobwebs',icon:'🕸️',price:35,spooky:true});
+SHOP.face.push({id:'goggles',name:'Safety goggles',icon:'🥽',price:40,spooky:true});
+SHOP.toy.push({id:'clipboard',name:'Clipboard',icon:'📋',price:30,spooky:true});
+SHOP.decor.push({id:'scienceroom',name:'Science classroom',icon:'🔬',price:60,spooky:true});
 SHOP.treat.push({id:'candy',name:'Candy corn',icon:'🍬',price:10,spooky:true},{id:'lollipop',name:'Swirly lollipop',icon:'🍭',price:14,spooky:true});
 Object.keys(SHOP).forEach(function(slot){SHOP[slot].forEach(function(it){if(it.price>0)it.price=slot==='treat'?Math.round(it.price*1.5/5)*5:it.price*2;});});
 const MULTI={toy:1,decor:1};
@@ -836,9 +851,11 @@ const PROPS={
     shelf:{pos:'right:2%;top:36%;width:15vmin',svg:'<svg viewBox="0 0 100 60"><rect x="2" y="46" width="96" height="8" rx="3" fill="#C9885A" stroke="#3F2778" stroke-width="3"/><rect x="10" y="18" width="10" height="28" fill="#9B7BFF" stroke="#3F2778" stroke-width="2.5"/><rect x="21" y="12" width="9" height="34" fill="#FF8FC7" stroke="#3F2778" stroke-width="2.5"/><rect x="31" y="22" width="10" height="24" fill="#7ED6B2" stroke="#3F2778" stroke-width="2.5"/><path d="M58 18h24q0 18-12 20q-12-2-12-20z" fill="#FFD23F" stroke="#3F2778" stroke-width="2.5" stroke-linejoin="round"/><path d="M70 38v6M62 44h16" stroke="#3F2778" stroke-width="3" stroke-linecap="round"/></svg>'},
     jackolantern:{front:true,pos:'left:37%;bottom:1%;width:9vmin',svg:'<svg viewBox="0 0 60 56"><ellipse cx="30" cy="33" rx="26" ry="20" fill="#FF9F43" stroke="#C4651A" stroke-width="3"/><path d="M30 14Q28 4 37 2" fill="none" stroke="#2F8F62" stroke-width="4" stroke-linecap="round"/><path d="M13 26l9 6l-9 3zM47 26l-9 6l9 3z" fill="#3F2778"/><path d="M15 41Q30 51 45 41L41 38L36 43L30 38L24 43L19 38Z" fill="#3F2778"/></svg>'},
     cobweb:{pos:'left:0;top:0;width:18vmin',svg:'<svg viewBox="0 0 100 100"><path d="M0 0L100 0M0 0L0 100M0 0L82 82M0 0L100 38M0 0L38 100" stroke="#8d7aa8" stroke-width="1.6" fill="none"/><path d="M30 0Q28 28 0 30M58 0Q52 52 0 58M88 0Q76 76 0 88" stroke="#8d7aa8" stroke-width="1.6" fill="none"/><circle cx="48" cy="46" r="4" fill="#3F2778"/><path d="M48 46L44 40M48 46L52 40M48 46L42 48M48 46L54 48" stroke="#3F2778" stroke-width="1.6"/></svg>'},
+    scienceroom:{pos:'left:2%;top:44%;width:17vmin',svg:'<svg viewBox="0 0 120 70"><rect x="4" y="4" width="112" height="56" rx="6" fill="#2F6B58" stroke="#C9885A" stroke-width="5"/><rect x="8" y="60" width="104" height="6" rx="2" fill="#C9885A" stroke="#3F2778" stroke-width="2"/><g fill="none" stroke="#fff" stroke-width="1.8"><ellipse cx="52" cy="26" rx="14" ry="5.5"/><ellipse cx="52" cy="26" rx="14" ry="5.5" transform="rotate(60 52 26)"/><ellipse cx="52" cy="26" rx="14" ry="5.5" transform="rotate(120 52 26)"/></g><circle cx="52" cy="26" r="2.8" fill="#FFE066"/><text x="72" y="31" font-size="14" fill="#fff" font-weight="700" font-family="Fredoka,Nunito,sans-serif">H<tspan font-size="8" dy="3">2</tspan><tspan dy="-3">O</tspan></text><text x="38" y="50" font-size="9" fill="#FFE066" font-weight="700" font-family="Fredoka,Nunito,sans-serif">E = mc²</text><path d="M14 42H20V50L27 60H7L14 50Z" fill="#E8F7FF" stroke="#3F2778" stroke-width="2" stroke-linejoin="round"/><path d="M10.5 54H23.5L27 60H7Z" fill="#6CC28B"/><path d="M100 42H106V50L113 60H93L100 50Z" fill="#E8F7FF" stroke="#3F2778" stroke-width="2" stroke-linejoin="round"/><path d="M96.5 54H109.5L113 60H93Z" fill="#FF8FC7"/></svg>'},
     lamp:{pos:'right:2%;bottom:15%;width:7vmin',svg:'<svg viewBox="0 0 50 110"><circle cx="25" cy="30" r="24" fill="#FFE9A8" opacity=".4"/><path d="M12 14h26l7 30H5z" fill="#FFB6D5" stroke="#3F2778" stroke-width="3" stroke-linejoin="round"/><path d="M25 44v54" stroke="#3F2778" stroke-width="5"/><ellipse cx="25" cy="102" rx="16" ry="6" fill="#9B7BFF" stroke="#3F2778" stroke-width="3"/></svg>'}
   },
   toy:{
+    clipboard:{pos:'right:34%;bottom:1%;width:8vmin',svg:'<svg viewBox="0 0 60 70"><rect x="6" y="8" width="48" height="58" rx="5" fill="#C9885A" stroke="#3F2778" stroke-width="3"/><rect x="12" y="16" width="36" height="46" rx="2" fill="#fff" stroke="#3F2778" stroke-width="2"/><rect x="19" y="3" width="22" height="12" rx="3" fill="#BBB6C9" stroke="#3F2778" stroke-width="2.5"/><path d="M17 27H43M17 35H43M17 43H34" stroke="#BBA9D9" stroke-width="2.5" stroke-linecap="round"/><path d="M17 53l5 5l11-11" fill="none" stroke="#3FAE8A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'},
     yarn:{pos:'left:4%;bottom:2%;width:8vmin',svg:'<svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="22" fill="#FF8FC7" stroke="#B8286F" stroke-width="3"/><path d="M12 24Q30 38 48 22M10 34Q30 48 50 32M20 10Q36 28 26 50" fill="none" stroke="#B8286F" stroke-width="2.5"/><path d="M48 46Q58 54 44 57" fill="none" stroke="#FF8FC7" stroke-width="3" stroke-linecap="round"/></svg>'},
     plush:{pos:'left:20%;bottom:2%;width:12vmin',svg:'<svg viewBox="0 0 80 50"><path d="M58 25L78 8V42Z" fill="#59B7E8" stroke="#3F2778" stroke-width="3" stroke-linejoin="round"/><ellipse cx="34" cy="25" rx="28" ry="18" fill="#7EC8F0" stroke="#3F2778" stroke-width="3"/><circle cx="20" cy="20" r="4" fill="#3F2778"/><path d="M36 10Q42 25 36 40M48 13Q53 25 48 37" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/></svg>'},
     mouse:{pos:'right:5%;bottom:2%;width:11vmin',svg:'<svg viewBox="0 0 80 50"><path d="M62 34Q80 30 76 14" fill="none" stroke="#C9A6E8" stroke-width="3" stroke-linecap="round"/><ellipse cx="38" cy="32" rx="28" ry="16" fill="#CFC6E3" stroke="#3F2778" stroke-width="3"/><circle cx="18" cy="16" r="9" fill="#FFB3CB" stroke="#3F2778" stroke-width="3"/><circle cx="16" cy="30" r="2.6" fill="#3F2778"/><circle cx="8" cy="34" r="3" fill="#F27BA3"/></svg>'},
@@ -1027,7 +1044,7 @@ function careChip(){return '<div class="streak care" data-a="careTip" role="butt
 ===================================================== */
 const BADGE_COINS=30;
 const KEYCAP={2:'2️⃣',3:'3️⃣',4:'4️⃣',5:'5️⃣',6:'6️⃣',7:'7️⃣',8:'8️⃣',9:'9️⃣',10:'🔟',11:'⭐',12:'🌟'};
-const SPOOKY_IDS=['hat:pumpkin','hat:witch','neck:batbow','body:batwings','body:ghost','decor:jackolantern','decor:cobweb'];
+const SPOOKY_IDS=['hat:pumpkin','hat:witch','neck:batbow','body:batwings','body:ghost','body:science','face:goggles','toy:clipboard','decor:scienceroom','decor:jackolantern','decor:cobweb'];
 const BADGES=[
   {id:'first',icon:'🐾',name:'First paw print',desc:'Finish your first set',test:()=>S.sets>=1},
   {id:'perf1',icon:'⭐',name:'Perfect!',desc:'Get 5 out of 5 right',test:()=>S.ach.perfect>=1},
@@ -1161,7 +1178,7 @@ function catTap(){
   sfx.meow();if(Math.random()<.5)setTimeout(sfx.purr,500);
   setMood('happy',1500);hop();
   burstAt($('#catWrap'),['💗','💖','✨'],5);
-  say(pick(GOOD),1200);
+  say(S.eq.body==='science'?pick(['Good morning, class!','Ms. Humora says: show your work!','Pop quiz!','Everyone line up for the experiment!','Remember your safety goggles!'].concat(S.placed['decor:scienceroom']?['Welcome to Ms. Humora\'s classroom!']:[]).concat(S.eq.face==='goggles'?['Safety first!']:[])):pick(GOOD),1800);
 }
 function poseFor(ch,hearts){
   const h=Math.min(hearts==null?S.story.hearts[ch]:hearts,3);
